@@ -78,4 +78,5 @@ jobs:
         with:
           app-name: 'tweetcred-agent'
           slot-name: 'Production'
+          startup-command: fastapi run --workers 4 server.py
           
