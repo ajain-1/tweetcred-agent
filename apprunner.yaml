@@ -9,6 +9,6 @@ build:
       - pip3 install gunicorn
 run:
   runtime-version: 3.11
-  command: python3 -m gunicorn --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000 server:app
+  command: python3 -m fastapi run --workers 10 server.py 
   network:
     port: 8000
