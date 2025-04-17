@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 from sklearn.decomposition import PCA
 import numpy as np
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
-from .formats import (
+from formats import (
     GeminiResponse,
     GeminiFactCheckResponse,
 )

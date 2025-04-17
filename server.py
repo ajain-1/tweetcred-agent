@@ -1,7 +1,7 @@
 # pylint: disable=import-error
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.responses import JSONResponse
-from .agent import get_structured_output, fact_check_tweet_image
+from agent import get_structured_output, fact_check_tweet_image
 
 from pydantic import BaseModel
 import asyncio
