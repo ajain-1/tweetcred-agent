@@ -1,14 +1,16 @@
-version: 1.0
-runtime: python3
-
+version: 1.0 # version of the specification
+runtime: python3 # runtime to use
 build:
   commands:
     build:
-      - pip3 install --upgrade pip3
-      - pip3 install -r requirements.txt
-      - pip3 install gunicorn
+      - pip install --upgrade pip
+      - pip install -r requirements.txt # install dependencies
+
+  env: # define environment variables
+    - name: PORT
+      value: '80'
+
 run:
-  runtime-version: 3.11
-  command: python3 -m fastapi run --workers 10 server.py 
+  command: python server.py # command to run fastapi
   network:
-    port: 8000
+    port: 80 # port AppRunner will expose

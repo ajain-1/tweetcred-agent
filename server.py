@@ -1,6 +1,8 @@
 # pylint: disable=import-error
-from fastapi import FastAPI, File, HTTPException, UploadFile
+import os
+from fastapi import FastAPI, File, HTTPException, UploadFile, middleware
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 from agent import get_structured_output, fact_check_tweet_image
 
 from pydantic import BaseModel
@@ -9,6 +11,14 @@ import json
 
 
 app = FastAPI()
+origins = ["*"]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/process_twitter/{username}")
@@ -82,4 +92,17 @@ async def fact_check(file: UploadFile = File(...)):
             "search_suggestions": search_suggestions,
             "source_links": source_links,
         }
+    )
+
+
+@app.get("/")
+async def root():
+    return JSONResponse(content={"message": "TweetCred"})
+
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run(
+        "server:app", host="0.0.0.0", port=int(os.getenv("PORT", 8080)), workers=4
     )
